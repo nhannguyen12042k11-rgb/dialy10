@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Ôn tập Địa lí 10</title>
+<style>
+  :root{
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #334155;
+    --gray: #64748b;
+    --line: #e2e8f0;
+    --line-strong: #cbd5e1;
+    --line-soft: #f1f5f9;
+    --hover: #f8fafc;
+    --chip-bg: #f1f5f9;
+    --chip-ink: #475569;
+    --blue: #2563eb;
+    --blue-soft: #eff6ff;
+    --blue-line: #bfdbfe;
+    --green: #16a34a;
+    --green-soft: #f0fdf4;
+    --green-line: #bbf7d0;
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+    --red-line: #fecaca;
+    --amber: #d97706;
+    --amber-soft: #fef3c7;
+    --amber-line: #fde68a;
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.05);
+    --shadow: 0 4px 12px -4px rgba(15,23,42,.08), 0 2px 4px -2px rgba(15,23,42,.04);
+    --radius: 14px;
+  }
+  [data-theme="dark"]{
+    --bg: #0f172a;
+    --bg-soft: #1e293b;
+    --card: #1e293b;
+    --ink: #f1f5f9;
+    --ink-soft: #cbd5e1;
+    --gray: #94a3b8;
+    --line: #334155;
+    --line-strong: #475569;
+    --line-soft: #1e293b;
+    --hover: #334155;
+    --chip-bg: #334155;
+    --chip-ink: #cbd5e1;
+    --blue: #60a5fa;
+    --blue-soft: #172554;
+    --blue-line: #1e40af;
+    --green: #4ade80;
+    --green-soft: #052e16;
+    --green-line: #166534;
+    --red: #f87171;
+    --red-soft: #450a0a;
+    --red-line: #991b1b;
+    --amber: #fbbf24;
+    --amber-soft: #422006;
+    --amber-line: #78350f;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.35);
+    --shadow: 0 4px 12px -4px rgba(0,0,0,.5), 0 2px 4px -2px rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    font-size:15px;line-height:1.55;color:var(--ink);background:var(--bg-soft);
+    min-height:100vh;-webkit-font-smoothing:antialiased;
+    transition:background .2s, color .2s;
+  }
+  button{font-family:inherit;color:inherit}
+  .wrap{max-width:680px;margin:0 auto;padding:20px 16px 120px}
+  .screen{display:none}
+  .screen.active{display:block}
+  .head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:4px 0 20px}
+  .head-row h1{margin:0 0 4px;font-size:23px;font-weight:700;letter-spacing:-.4px}
+  .head-row p{margin:0;color:var(--gray);font-size:14px}
+  .head-row.small{padding:4px 0 14px}
+  .head-row.small h1{font-size:19px;margin:0}
+  .theme-btn{
+    width:40px;height:40px;flex:0 0 auto;border:1px solid var(--line);
+    border-radius:12px;background:var(--card);color:var(--ink);font-size:16px;
+    cursor:pointer;display:grid;place-items:center;transition:.15s;box-shadow:var(--shadow-sm);
+  }
+  .theme-btn:hover{background:var(--hover)}
+  .theme-btn:active{transform:scale(.96)}
+  .password-wrap{max-width:360px;margin:0 auto;padding-top:40px}
+  .password-icon{
+    width:72px;height:72px;margin:0 auto 20px;border-radius:20px;
+    display:grid;place-items:center;font-size:32px;
+    background:var(--blue-soft);border:1px solid var(--blue-line);
+  }
+  .password-wrap h1{font-size:22px;margin:0 0 6px;text-align:center}
+  .password-wrap > p{color:var(--gray);margin:0 0 24px;text-align:center;font-size:14px}
+  .password-input{
+    width:100%;padding:14px 16px;font-size:16px;
+    border:1.5px solid var(--line-strong);border-radius:12px;
+    background:var(--card);color:var(--ink);text-align:center;
+    letter-spacing:6px;font-weight:600;outline:none;transition:.15s;font-family:inherit;
+  }
+  .password-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .password-error{color:var(--red);font-size:13px;margin:10px 0 0;text-align:center;min-height:20px}
+  .box{
+    border:1px solid var(--line);border-radius:var(--radius);padding:18px;
+    margin-bottom:14px;background:var(--card);box-shadow:var(--shadow-sm);
+    transition:background .2s, border-color .2s;
+  }
+  .box h2{margin:0 0 3px;font-size:15px;font-weight:700}
+  .box .hint{margin:0 0 14px;font-size:13px;color:var(--gray)}
+  .info-grid{display:flex;gap:8px}
+  .info-cell{
+    flex:1;text-align:center;border:1px solid var(--line);
+    border-radius:11px;padding:12px 8px;background:var(--bg-soft);
+  }
+  .info-cell b{display:block;font-size:17px;font-weight:700;color:var(--blue);margin-bottom:2px}
+  .info-cell span{font-size:12px;color:var(--gray)}
+  .row{
+    display:flex;align-items:center;gap:12px;padding:13px 0;
+    border-bottom:1px solid var(--line-soft);cursor:pointer;
+  }
+  .row:last-of-type{border-bottom:none;padding-bottom:0}
+  .row:first-of-type{padding-top:0}
+  .row-txt{flex:1;min-width:0}
+  .row-txt b{display:block;font-size:14.5px;font-weight:600}
+  .row-txt small{display:block;font-size:12.5px;color:var(--gray);margin-top:1px}
+  .row input{display:none}
+  .toggle{
+    width:42px;height:24px;border-radius:99px;background:var(--line-strong);
+    position:relative;transition:.2s;flex:0 0 auto;
+  }
+  .toggle::after{
+    content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;
+    border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2);
+  }
+  .row input:checked + .toggle{background:var(--blue)}
+  .row input:checked + .toggle::after{transform:translateX(18px)}
+  .label{display:block;font-size:14px;font-weight:600;margin:0 0 10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    padding:9px 15px;border-radius:10px;border:1px solid var(--line);
+    background:var(--card);color:var(--chip-ink);font-size:13.5px;font-weight:500;
+    cursor:pointer;transition:.15s;
+  }
+  .chip:hover{background:var(--hover)}
+  .chip.active{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+  .view-mode-list{display:flex;flex-direction:column;gap:8px}
+  .view-mode-opt{
+    display:flex;flex-direction:column;gap:3px;text-align:left;
+    padding:13px 14px;border-radius:11px;border:1px solid var(--line);
+    background:var(--card);cursor:pointer;transition:.15s;
+  }
+  .view-mode-opt:hover{background:var(--hover)}
+  .view-mode-opt .vm-title{
+    font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .view-mode-opt .vm-badge{
+    display:inline-block;font-size:10.5px;font-weight:700;
+    padding:2px 8px;border-radius:99px;background:var(--blue-soft);color:var(--blue);
+    letter-spacing:.3px;
+  }
+  .view-mode-opt .vm-sub{font-size:12.5px;color:var(--gray)}
+  .view-mode-opt.active{border-color:var(--blue);background:var(--blue-soft)}
+  .view-mode-opt.active .vm-title{color:var(--blue)}
+  .view-mode-opt.active .vm-badge{background:var(--blue);color:#fff}
+  .btn{
+    padding:13px 20px;border-radius:12px;border:1px solid transparent;
+    font-size:15px;font-weight:600;cursor:pointer;transition:.15s;flex:1;min-width:0;
+  }
+  .btn.primary{background:var(--blue);color:#fff;box-shadow:0 4px 12px -4px rgba(37,99,235,.4)}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .btn.primary:active{transform:scale(.99)}
+  .btn.plain{background:var(--card);border-color:var(--line-strong);color:var(--ink)}
+  .btn.plain:hover{background:var(--hover)}
+  .btn.plain:active{transform:scale(.99)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn-block{width:100%;display:block;margin-top:16px}
+  .note{
+    font-size:13px;color:var(--gray);border:1px solid var(--line);
+    border-radius:var(--radius);padding:13px 15px;margin-bottom:14px;
+    background:var(--card);line-height:1.7;
+  }
+  .note b{color:var(--ink)}
+  .topbar{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:680px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  .time{
+    font-variant-numeric:tabular-nums;font-weight:700;font-size:14.5px;
+    color:var(--blue);background:var(--blue-soft);padding:6px 12px;border-radius:9px;
+  }
+  .time.warn{color:var(--red);background:var(--red-soft)}
+  .counter{flex:1;text-align:center;font-size:13.5px;font-weight:600;color:var(--gray)}
+  .menu-btn{
+    width:40px;height:40px;flex:0 0 auto;border:1px solid var(--line);
+    border-radius:11px;background:var(--card);color:var(--ink);
+    font-size:16px;cursor:pointer;display:grid;place-items:center;
+  }
+  .menu-btn:hover{background:var(--hover)}
+  .bar{height:3px;background:var(--line-soft)}
+  .bar-fill{height:100%;background:var(--blue);width:0;transition:width .3s}
+  .part{
+    display:inline-block;font-size:11px;font-weight:700;
+    letter-spacing:.5px;padding:4px 10px;border-radius:6px;margin-bottom:10px;
+  }
+  .part.p1{background:var(--blue-soft);color:var(--blue)}
+  .part.p2{background:var(--green-soft);color:var(--green)}
+  .topic{font-size:12.5px;color:var(--gray);margin-bottom:12px}
+  .qtext{
+    margin:0 0 14px;padding:14px 16px;font-size:15.5px;font-weight:600;
+    line-height:1.55;color:var(--ink);background:var(--bg-soft);
+    border-left:3px solid var(--blue);border-radius:8px;
+  }
+  .opt{
+    display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;
+    padding:13px 14px;margin-bottom:9px;border:1.5px solid var(--line-strong);
+    border-radius:11px;background:var(--card);font-size:14.8px;line-height:1.5;
+    color:var(--ink);cursor:pointer;transition:.13s;
+  }
+  .opt:hover{background:var(--hover)}
+  .opt:last-child{margin-bottom:0}
+  .opt-letter{
+    flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    background:var(--chip-bg);color:var(--chip-ink);
+    display:grid;place-items:center;font-size:12.5px;font-weight:700;
+    margin-top:1px;transition:.13s;
+  }
+  .opt-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+  .opt-text{display:block}
+  .opt-labels{display:flex;gap:6px;flex-wrap:wrap}
+  .opt.selected{border-color:var(--blue);background:var(--blue-soft)}
+  .opt.selected .opt-letter{background:var(--blue);color:#fff}
+  .opt.correct{border-color:var(--green);background:var(--green-soft)}
+  .opt.correct .opt-letter{background:var(--green);color:#fff}
+  .opt.wrong{border-color:var(--red);background:var(--red-soft)}
+  .opt.wrong .opt-letter{background:var(--red);color:#fff}
+  .lbl{
+    display:inline-block;font-size:10.5px;font-weight:700;
+    padding:2px 8px;border-radius:5px;letter-spacing:.2px;line-height:1.4;white-space:nowrap;
+  }
+  .lbl-user{background:var(--amber-soft);color:var(--amber)}
+  .lbl-correct{background:var(--green-soft);color:var(--green)}
+  .lbl-muted{background:var(--chip-bg);color:var(--gray)}
+  .passage{
+    background:var(--bg-soft);border-left:3px solid var(--blue);
+    border-radius:0 8px 8px 0;padding:13px 15px;font-size:13.8px;line-height:1.7;
+    color:var(--ink-soft);margin:0 0 14px;
+  }
+  .passage.small{padding:11px 13px;font-size:13px;margin-bottom:12px}
+  .tfrow{padding:13px 0;border-bottom:1px solid var(--line-soft)}
+  .tfrow:last-child{border-bottom:none;padding-bottom:0}
+  .tfrow:first-child{padding-top:0}
+  .tflabel{font-size:14.5px;line-height:1.55;margin-bottom:10px}
+  .tflabel b{color:var(--blue)}
+  .tfbtns{display:flex;gap:8px}
+  .tfbtn{
+    flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--line-strong);
+    background:var(--card);color:var(--chip-ink);font-size:14px;font-weight:600;
+    cursor:pointer;transition:.13s;
+  }
+  .tfbtn:hover{background:var(--hover)}
+  .tfbtn.selected{background:var(--blue);border-color:var(--blue);color:#fff}
+  .tfbtn.correct{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .tfbtn.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+  .tf-labels{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .foot{
+    position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);
+    border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+  .foot-inner{max-width:680px;margin:0 auto;display:flex;gap:8px}
+  .foot .btn{padding:12px;font-size:14.5px}
+  body.scroll-mode #btnPrev,
+  body.scroll-mode #btnNext{display:none}
+  body.scroll-mode #btnSubmit{flex:1}
+  body.scroll-mode .qcard{scroll-margin-top:80px}
+  .overlay{
+    position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:40;
+    opacity:0;pointer-events:none;transition:.2s;
+  }
+  .overlay.on{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;left:0;right:0;bottom:0;z-index:41;background:var(--card);
+    border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+    transform:translateY(105%);transition:.25s;max-height:78vh;
+    display:flex;flex-direction:column;
+  }
+  .drawer.on{transform:translateY(0)}
+  .drawer-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .drawer-hd h3{margin:0;font-size:15px}
+  .drawer-hd button{
+    border:none;background:var(--chip-bg);width:32px;height:32px;
+    border-radius:50%;font-size:14px;cursor:pointer;color:var(--ink);
+  }
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));
+    gap:6px;overflow-y:auto;padding:2px 0 6px;
+  }
+  .grid button{
+    aspect-ratio:1;border-radius:9px;border:1px solid var(--line);
+    background:var(--card);color:var(--chip-ink);font-size:13px;font-weight:600;
+    cursor:pointer;transition:.13s;
+  }
+  .grid button:hover{background:var(--hover)}
+  .grid button.answered{background:var(--blue-soft);border-color:var(--blue-line);color:var(--blue)}
+  .grid button.cur{border-color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue);color:var(--blue)}
+  .grid .sep{
+    grid-column:1/-1;font-size:11px;font-weight:700;color:var(--gray);
+    letter-spacing:.5px;margin:6px 0 2px;
+  }
+  .modal{
+    position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;
+    background:rgba(15,23,42,.5);opacity:0;pointer-events:none;transition:.18s;
+  }
+  .modal.on{opacity:1;pointer-events:auto}
+  .modal-box{
+    background:var(--card);border-radius:16px;padding:22px;width:100%;max-width:360px;
+    box-shadow:0 20px 40px -12px rgba(15,23,42,.35);
+  }
+  .modal-box h3{margin:0 0 8px;font-size:16px}
+  .modal-box p{margin:0 0 18px;font-size:14px;color:var(--gray)}
+  .modal-actions{display:flex;gap:8px}
+  .result-hero{padding:22px 18px 18px}
+  .result-title{margin:0 0 20px;font-size:20px;font-weight:700;text-align:center;letter-spacing:-.3px}
+  .charts-row{display:flex;gap:14px;justify-content:center;margin-bottom:18px}
+  .chart{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:170px}
+  .chart-svg-wrap{position:relative;width:100%;aspect-ratio:1;max-width:150px}
+  .chart-svg-wrap svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
+  .chart-track{fill:none;stroke:var(--line-soft);stroke-width:12}
+  .chart-score-ring{
+    fill:none;stroke:var(--blue);stroke-width:12;stroke-linecap:round;
+    stroke-dasharray:314.16;stroke-dashoffset:314.16;
+    transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);
+  }
+  .chart-seg{fill:none;stroke-width:12;transition:stroke-dasharray .8s cubic-bezier(.22,1,.36,1)}
+  .chart-seg-correct{stroke:var(--green)}
+  .chart-seg-wrong{stroke:var(--red)}
+  .chart-center{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;pointer-events:none;
+  }
+  .chart-val{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--ink)}
+  .chart-val.small{font-size:22px}
+  .chart-lbl{font-size:11.5px;color:var(--gray);font-weight:600;margin-top:3px}
+  .chart-caption{font-size:12.5px;font-weight:600;color:var(--gray)}
+  .breakdown{
+    display:flex;justify-content:center;gap:6px;flex-wrap:wrap;
+    padding:14px;background:var(--bg-soft);border-radius:12px;margin-bottom:16px;
+  }
+  .bd-item{display:flex;align-items:center;gap:6px;padding:6px 10px;font-size:13px}
+  .bd-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+  .bd-green{background:var(--green)}
+  .bd-red{background:var(--red)}
+  .bd-gray{background:var(--line-strong)}
+  .bd-lbl{color:var(--gray);font-weight:500}
+  .bd-val{color:var(--ink);font-weight:700}
+  .result-stats{display:flex;gap:8px;margin-bottom:16px}
+  .result-stat{
+    flex:1;text-align:center;padding:10px 6px;
+    border:1px solid var(--line);border-radius:10px;
+  }
+  .result-stat b{display:block;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .result-stat span{font-size:11.5px;color:var(--gray)}
+  .result-actions{display:flex;gap:8px}
+  .review-hd{
+    display:flex;align-items:center;justify-content:space-between;
+    margin:24px 0 12px;flex-wrap:wrap;gap:10px;
+  }
+  .review-hd h3{margin:0;font-size:16px}
+  .ritem{padding:16px;margin-bottom:10px}
+  .ritem-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .ritem-num{font-size:12.5px;font-weight:700;color:var(--blue)}
+  .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px}
+  .tag.ok{background:var(--green-soft);color:var(--green)}
+  .tag.no{background:var(--red-soft);color:var(--red)}
+  .ritem .qtext{font-size:14.5px;font-weight:600;margin-bottom:10px;padding:11px 13px}
+  .ritem .opt{font-size:14px;padding:10px 12px;cursor:default}
+  .ritem .opt:hover{background:var(--card)}
+  .ritem .tflabel{font-size:14px}
+  .ritem .tfbtn{cursor:default}
+  .ritem .tfbtn:hover{background:var(--card)}
+  .empty{text-align:center;color:var(--gray);font-size:14px;padding:26px 0}
+</style>
+</head>
+<body>
+
+<!-- ============ PASSWORD ============ -->
+<section id="passwordScreen" class="screen active">
+  <div class="wrap">
+    <div class="password-wrap">
+      <div class="password-icon">🔒</div>
+      <h1>Nhập mật khẩu</h1>
+      <p>Vui lòng nhập mật khẩu để vào bài ôn tập</p>
+      <input type="password" id="passwordInput" class="password-input" placeholder="••••"
+             autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div class="password-error" id="passwordError"></div>
+      <button class="btn primary btn-block" id="btnPasswordSubmit">Vào bài</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ START ============ -->
+<section id="startScreen" class="screen">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <h1>Ôn tập Địa lí 10</h1>
+        <p>Trắc nghiệm nhiều lựa chọn &amp; trắc nghiệm đúng/sai</p>
+      </div>
+      <button class="theme-btn" data-theme-toggle aria-label="Chuyển giao diện">🌙</button>
+    </div>
+    <div class="box">
+      <div class="info-grid">
+        <div class="info-cell"><b>60</b><span>Câu trắc nghiệm</span></div>
+        <div class="info-cell"><b>5</b><span>Câu đúng/sai</span></div>
+        <div class="info-cell"><b>3</b><span>Chuyên đề</span></div>
+      </div>
+    </div>
+    <div class="box">
+      <h2>Cấu hình bài làm</h2>
+      <p class="hint">Tuỳ chỉnh trước khi bắt đầu</p>
+      <label class="row">
+        <div class="row-txt">
+          <b>Đảo đáp án</b>
+          <small>Xáo trộn thứ tự các lựa chọn A, B, C, D</small>
+        </div>
+        <input type="checkbox" id="optShuffleAnswers">
+        <span class="toggle"></span>
+      </label>
+      <label class="row">
+        <div class="row-txt">
+          <b>Đảo thứ tự câu hỏi</b>
+          <small>Xáo trộn câu hỏi trong từng phần</small>
+        </div>
+        <input type="checkbox" id="optShuffleQuestions">
+        <span class="toggle"></span>
+      </label>
+      <span class="label" style="margin-top:16px">Thời gian làm bài</span>
+      <div class="chips" id="timerChips">
+        <button type="button" class="chip" data-min="30">30 phút</button>
+        <button type="button" class="chip active" data-min="45">45 phút</button>
+        <button type="button" class="chip" data-min="60">60 phút</button>
+        <button type="button" class="chip" data-min="0">Không giới hạn</button>
+      </div>
+      <span class="label" style="margin-top:18px">Chế độ xem câu hỏi</span>
+      <div class="view-mode-list" id="viewModeChips">
+        <button type="button" class="view-mode-opt active" data-mode="single">
+          <span class="vm-title">Từng câu <span class="vm-badge">Khuyến nghị cho điện thoại</span></span>
+          <span class="vm-sub">Lật từng câu với nút Tiếp / Trước</span>
+        </button>
+        <button type="button" class="view-mode-opt" data-mode="scroll">
+          <span class="vm-title">Cuộn tất cả</span>
+          <span class="vm-sub">Xem toàn bộ câu hỏi trên một trang</span>
+        </button>
+      </div>
+    </div>
+    <div class="note">
+      <b>Phần 1</b> — Trắc nghiệm nhiều lựa chọn (60 câu)<br>
+      <b>Phần 2</b> — Trắc nghiệm đúng/sai (5 câu · 20 ý)
+    </div>
+    <button class="btn primary btn-block" id="btnStart">Bắt đầu làm bài</button>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quizScreen" class="screen">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="time" id="timer">45:00</div>
+      <div class="counter" id="progressText">Câu 1/65</div>
+      <button class="theme-btn" data-theme-toggle aria-label="Chuyển giao diện">🌙</button>
+      <button class="menu-btn" id="btnPalette" aria-label="Danh sách câu hỏi">☰</button>
+    </div>
+    <div class="bar"><div class="bar-fill" id="progressFill"></div></div>
+  </div>
+  <div class="wrap"><div id="questionArea"></div></div>
+  <div class="foot">
+    <div class="foot-inner">
+      <button class="btn plain" id="btnPrev">← Trước</button>
+      <button class="btn plain" id="btnNext">Tiếp →</button>
+      <button class="btn primary" id="btnSubmit">Nộp bài</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section id="resultScreen" class="screen">
+  <div class="wrap">
+    <div class="head-row small">
+      <h1>Kết quả bài làm</h1>
+      <button class="theme-btn" data-theme-toggle aria-label="Chuyển giao diện">🌙</button>
+    </div>
+    <div class="box result-hero">
+      <h2 class="result-title" id="resultTitle">Hoàn thành!</h2>
+      <div class="charts-row">
+        <div class="chart">
+          <div class="chart-svg-wrap">
+            <svg viewBox="0 0 120 120">
+              <circle class="chart-track" cx="60" cy="60" r="50"/>
+              <circle class="chart-score-ring" id="scoreRing" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="chart-center">
+              <div class="chart-val" id="scoreDisplay">0</div>
+              <div class="chart-lbl">điểm / 10</div>
+            </div>
+          </div>
+          <div class="chart-caption">Điểm số</div>
+        </div>
+        <div class="chart">
+          <div class="chart-svg-wrap">
+            <svg viewBox="0 0 120 120">
+              <circle class="chart-track" cx="60" cy="60" r="50"/>
+              <circle class="chart-seg chart-seg-correct" id="segCorrect" cx="60" cy="60" r="50"/>
+              <circle class="chart-seg chart-seg-wrong" id="segWrong" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="chart-center">
+              <div class="chart-val small" id="totalCount">0</div>
+              <div class="chart-lbl">câu hỏi</div>
+            </div>
+          </div>
+          <div class="chart-caption">Tỉ lệ trả lời</div>
+        </div>
+      </div>
+      <div class="breakdown">
+        <div class="bd-item">
+          <span class="bd-dot bd-green"></span>
+          <span class="bd-lbl">Đúng</span>
+          <b class="bd-val" id="bdCorrect">0</b>
+        </div>
+        <div class="bd-item">
+          <span class="bd-dot bd-red"></span>
+          <span class="bd-lbl">Sai</span>
+          <b class="bd-val" id="bdWrong">0</b>
+        </div>
+        <div class="bd-item">
+          <span class="bd-dot bd-gray"></span>
+          <span class="bd-lbl">Chưa làm</span>
+          <b class="bd-val" id="bdUnanswered">0</b>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="result-stat"><b id="mcScore">0/60</b><span>Trắc nghiệm</span></div>
+        <div class="result-stat"><b id="tfScore">0/20</b><span>Đúng/Sai</span></div>
+        <div class="result-stat"><b id="timeUsed">--:--</b><span>Thời gian</span></div>
+      </div>
+      <div class="result-actions">
+        <button class="btn primary" id="btnRetake">Làm lại</button>
+        <button class="btn plain" id="btnHome">Trang chủ</button>
+      </div>
+    </div>
+    <div class="review-hd">
+      <h3>Xem lại bài</h3>
+      <div class="chips" id="filterChips">
+        <button type="button" class="chip active" data-filter="all">Tất cả</button>
+        <button type="button" class="chip" data-filter="wrong">Câu sai</button>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+</section>
+
+<div class="overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-hd">
+    <h3>Danh sách câu hỏi</h3>
+    <button id="drawerClose">✕</button>
+  </div>
+  <div class="grid" id="palette"></div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 id="modalTitle">Thông báo</h3>
+    <p id="modalMsg"></p>
+    <div class="modal-actions">
+      <button class="btn plain" id="modalCancel">Huỷ</button>
+      <button class="btn primary" id="modalOk">Đồng ý</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   HELPERS  ←  ĐÃ CHUYỂN LÊN ĐẦU (fix TDZ bug)
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const shuffle = arr => {
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+const fmtTime = s => {
+  s = Math.max(0, Math.floor(s));
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+};
+const showScreen = id => {
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+  window.scrollTo(0, 0);
+};
+const CIRCUMFERENCE = 2 * Math.PI * 50;
+
+/* =========================================================
+   THEME
+   ========================================================= */
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('quiz-theme', theme); } catch(e){}
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    btn.setAttribute('aria-label',
+      theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối');
+  });
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', theme === 'dark' ? '#0f172a' : '#ffffff');
+}
+function initTheme(){
+  let saved = null;
+  try { saved = localStorage.getItem('quiz-theme'); } catch(e){}
+  applyTheme(saved === 'dark' ? 'dark' : 'light');
+}
+initTheme();
+document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+});
+
+/* =========================================================
+   PASSWORD GATE
+   ========================================================= */
+const PASSWORD = 'C12';
+
+function initPassword(){
+  let authed = false;
+  try { authed = sessionStorage.getItem('quiz-authed') === '1'; } catch(e){}
+  if(authed){
+    showScreen('startScreen');
+    return;
+  }
+  showScreen('passwordScreen');
+  setTimeout(() => { const el = $('passwordInput'); if(el) el.focus(); }, 100);
+}
+function tryPassword(){
+  const input = $('passwordInput');
+  const err = $('passwordError');
+  const val = (input.value || '').trim();
+  if(val === PASSWORD){
+    err.textContent = '';
+    try { sessionStorage.setItem('quiz-authed', '1'); } catch(e){}
+    showScreen('startScreen');
+  } else {
+    err.textContent = 'Mật khẩu không đúng. Vui lòng thử lại.';
+    input.select();
+  }
+}
+$('btnPasswordSubmit').addEventListener('click', tryPassword);
+$('passwordInput').addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){ e.preventDefault(); tryPassword(); }
+});
+$('passwordInput').addEventListener('input', () => {
+  const err = $('passwordError');
+  if(err.textContent) err.textContent = '';
+});
+
+/* =========================================================
+   DATA
+   ========================================================= */
+const TOPICS = {
+  A: 'Sự hình thành Trái Đất, vỏ Trái Đất và vật liệu cấu tạo vỏ Trái Đất',
+  B: 'Hệ quả địa lí các chuyển động của Trái Đất',
+  C: 'Thạch quyển, thuyết kiến tạo mảng'
+};
+
+const MC_DATA = [
+  {t:'A', q:'Quá trình hình thành Trái Đất gắn liền với sự hình thành',
+   o:['Ngân Hà.','Hệ Mặt Trời.','Mặt Trăng.','Vỏ Trái Đất.'], a:1},
+  {t:'A', q:'Trong giả thuyết được giới thiệu, khí và bụi chuyển động quanh Mặt Trời dần ngưng tụ tạo thành',
+   o:['các ngôi sao.','các thiên hà.','các hành tinh.','các lớp khí quyển.'], a:2},
+  {t:'A', q:'Lớp vật chất cứng nằm ngoài cùng của Trái Đất',
+   o:['Vỏ Trái Đất.','Manti.','Nhân ngoài.','Nhân trong.'], a:0},
+  {t:'A', q:'Độ dày của vỏ Trái Đất dao động trong khoảng',
+   o:['5 - 35 km.','5 - 70 km.','35 - 70 km.','40 - 60 km.'], a:1},
+  {t:'A', q:'Hai kiểu vỏ Trái Đất được phân biệt theo thành phần cấu tạo và độ dày',
+   o:['Vỏ trên và vỏ dưới.','Vỏ cứng và vỏ mềm.','Vỏ lục địa và vỏ đại dương.','Vỏ trầm tích và vỏ macma.'], a:2},
+  {t:'A', q:'Tầng đá nằm trên cùng của vỏ Trái Đất',
+   o:['Tầng granit.','Tầng badan.','Tầng manti.','Tầng trầm tích.'], a:3},
+  {t:'A', q:'Vỏ đại dương được cấu tạo chủ yếu bởi',
+   o:['đá granit.','đá badan.','đá vôi.','đá phiến.'], a:1},
+  {t:'A', q:'Vật liệu cấu tạo vỏ Trái Đất gồm',
+   o:['đất và nước.','khí và bụi.','khoáng vật và đá.','sinh vật và mùn.'], a:2},
+  {t:'A', q:'Khái niệm khoáng vật được thể hiện qua nội dung',
+   o:['tập hợp nhiều loại đất và sinh vật tự nhiên.',
+      'lớp vật chất nóng chảy ở phần manti trên.',
+      'vật liệu vụn do con người nghiền từ đá.',
+      'nguyên tố hoặc hợp chất tự nhiên do địa chất tạo thành.'], a:3},
+  {t:'A', q:'Theo nguồn gốc, đá cấu tạo vỏ Trái Đất được chia thành',
+   o:['hai nhóm.','bốn nhóm.','ba nhóm.','năm nhóm.'], a:2},
+  {t:'A', q:'Điểm phân biệt cơ bản giữa khoáng vật và đá',
+   o:['Khoáng vật luôn có màu sáng, còn đá luôn có màu tối.',
+      'Khoáng vật chỉ có ở lục địa, còn đá chỉ có ở đại dương.',
+      'Khoáng vật do con người tạo ra, còn đá có sẵn trong tự nhiên.',
+      'Khoáng vật là nguyên tố hoặc hợp chất, còn đá là tập hợp khoáng vật.'], a:3},
+  {t:'A', q:'Vật liệu vụn nhỏ lắng đọng và bị nén chặt trong các vùng trũng tạo thành',
+   o:['đá trầm tích.','đá macma.','đá biến chất.','khoáng vật kim loại.'], a:0},
+  {t:'A', q:'Trình tự phù hợp với giả thuyết hình thành Trái Đất được giới thiệu',
+   o:['Trái Đất phân lớp - Mặt Trời hình thành - khí bụi ngưng tụ - hành tinh xuất hiện.',
+      'Hành tinh xuất hiện - Mặt Trời hình thành - vật chất nóng chảy - khí bụi chuyển động.',
+      'Vật chất nóng chảy - Mặt Trời hình thành - Trái Đất giảm khối lượng - các lớp biến mất.',
+      'Mặt Trời hình thành - khí bụi chuyển động - hình thành hành tinh - Trái Đất tăng nhiệt, phân lớp.'], a:3},
+  {t:'A', q:'Khối đá granit bị biến đổi mạnh dưới nhiệt độ và áp suất cao tạo thành đá gomai thuộc nhóm',
+   o:['Đá trầm tích.','Đá macma.','Khoáng vật.','Đá biến chất.'], a:3},
+  {t:'A', q:'Khi Trái Đất đạt khối lượng gần như hiện nay, quá trình tăng nhiệt bên trong dẫn tới',
+   o:['vật chất co lại thành khối đồng nhất.',
+      'bề mặt Trái Đất đông bằng hoàn toàn.',
+      'khí và bụi tách khỏi Hệ Mặt Trời.',
+      'vật chất nóng chảy và phân thành các lớp.'], a:3},
+  {t:'A', q:'Vỏ lục địa có cấu tạo phức tạp hơn vỏ đại dương chủ yếu do',
+   o:['gồm đủ tầng trầm tích, granit và badan.',
+      'chỉ gồm một tầng đá có độ dày lớn.',
+      'không có tầng trầm tích và tầng badan.',
+      'được cấu tạo hoàn toàn bằng đá trầm tích.'], a:0},
+  {t:'A', q:'Nghiên cứu sóng địa chấn được sử dụng để tìm hiểu cấu trúc sâu bên trong Trái Đất chủ yếu do',
+   o:['sóng địa chấn chỉ truyền trong vỏ lục địa.',
+      'các lớp sâu rất khó nghiên cứu trực tiếp.',
+      'sóng địa chấn tạo ra các lớp vật chất mới.',
+      'các lớp sâu có thành phần vật chất giống nhau.'], a:1},
+  {t:'A', q:'Tầng trầm tích có độ dày không đều và không liên tục chủ yếu do',
+   o:['chỉ hình thành ở những vùng núi cao.',
+      'bị nóng chảy hoàn toàn dưới đại dương.',
+      'mức độ lắng đọng vật liệu khác nhau giữa các nơi.',
+      'chỉ được cấu tạo từ một loại khoáng vật.'], a:2},
+  {t:'A', q:'Phát biểu nào sau đây đúng với Trái Đất trong Hệ Mặt Trời?',
+   o:['Trái Đất tự quay quanh trục, sau đó chuyển động tịnh tiến quanh Mặt Trời.',
+      'Trái Đất chuyển động tịnh tiến quanh Mặt Trời, sau đó tự quay quanh trục.',
+      'Trái Đất vừa tự quay quanh trục, vừa chuyển động tịnh tiến quanh Mặt Trời.',
+      'Trái Đất chuyển động tịnh tiến quanh trục và tự quay xung quanh Mặt Trời.'], a:2},
+  {t:'A', q:'Đá biến chất được hình thành',
+   o:['từ dưới sâu nóng chảy, trào lên mặt đất nguội đi.',
+      'ở nơi trũng do sự lắng tụ và nén chặt các vật liệu.',
+      'từ trầm tích bị thay đổi tính chất do nhiệt độ cao.',
+      'từ khối macma nóng chảy dưới mặt đất trào lên.'], a:2},
+
+  {t:'B', q:'Hướng tự quay quanh trục của Trái Đất',
+   o:['Từ đông sang tây.','Từ tây sang đông.','Từ bắc xuống nam.','Từ nam lên bắc.'], a:1},
+  {t:'B', q:'Số múi giờ được chia trên Trái Đất là',
+   o:['12 múi.','18 múi.','36 múi.','24 múi.'], a:3},
+  {t:'B', q:'Độ rộng trung bình theo kinh tuyến của một múi giờ là',
+   o:['15°.','10°.','20°.','30°.'], a:0},
+  {t:'B', q:'Múi giờ số 0 có kinh tuyến giữa đi qua',
+   o:['thành phố Pa-ri.','thành phố Niu Óoc.','đài thiên văn Greenwich.','thành phố Tô-ky-ô.'], a:2},
+  {t:'B', q:'Đường chuyển ngày quốc tế được quy định gắn với kinh tuyến',
+   o:['0°.','180°.','90°Đ.','90°T.'], a:1},
+  {t:'B', q:'Khi đi từ phía tây sang phía đông qua đường chuyển ngày quốc tế, cách điều chỉnh lịch',
+   o:['Tăng thêm hai ngày lịch.','Giữ nguyên ngày đang tính.','Tăng thêm một ngày lịch.','Lùi lại một ngày lịch.'], a:3},
+  {t:'B', q:'Địa điểm nằm gần xích đạo trong năm thường có',
+   o:['ngày kéo dài sáu tháng, đêm kéo dài sáu tháng.',
+      'thời gian ngày và đêm thường gần bằng nhau.',
+      'mùa đông kéo dài và chiếm phần lớn thời gian trong năm.',
+      'chênh lệch thời gian ngày đêm trong năm rất lớn.'], a:1},
+  {t:'B', q:'Các địa phương có cùng một giờ khi nằm trong cùng một',
+   o:['múi giờ.','kinh tuyến.','vĩ tuyến.','khu vực.'], a:0},
+  {t:'B', q:'Lãnh thổ Việt Nam chủ yếu nằm trong múi giờ số mấy?',
+   o:['5.','6.','7.','8.'], a:2},
+  {t:'B', q:'Để phù hợp với thời gian nơi đi, khi đi từ phía đông sang phía tây qua kinh tuyến đổi ngày, cần',
+   o:['tăng thêm một ngày lịch.','lùi đi một ngày lịch.','giữ nguyên lịch ngày đi.','giữ nguyên lịch ngày đến.'], a:0},
+  {t:'B', q:'Trên thực tế, ranh giới múi giờ thường được quy định theo',
+   o:['biên giới quốc gia.','vị trí của thủ đô.','kinh tuyến giữa.','điểm cực đông.'], a:0},
+  {t:'B', q:'Nơi nào sau đây trong một năm có hai lần Mặt Trời lên thiên đỉnh?',
+   o:['Chí tuyến Bắc.','Chí tuyến Nam.','Xích đạo.','Ngoại chí tuyến.'], a:2},
+  {t:'B', q:'Về mùa hạ, ở các địa điểm trên bán cầu Bắc luôn có',
+   o:['ngày dài hơn đêm.','đêm dài hơn ngày.','ngày đêm bằng nhau.','toàn ngày hoặc đêm.'], a:0},
+  {t:'B', q:'Về mùa đông, ở các địa điểm trên bán cầu Bắc luôn có',
+   o:['ngày dài hơn đêm.','đêm dài hơn ngày.','ngày đêm bằng nhau.','toàn ngày hoặc đêm.'], a:1},
+  {t:'B', q:'Hệ quả trực tiếp của chuyển động tự quay quanh trục thể hiện qua',
+   o:['sự hình thành các mùa trong năm.',
+      'sự thay đổi độ dài ngày đêm theo mùa.',
+      'sự luân phiên ngày và đêm trên Trái Đất.',
+      'sự thay đổi khoảng cách giữa Trái Đất và Mặt Trời.'], a:2},
+  {t:'B', q:'Sự luân phiên ngày đêm trên Trái Đất chủ yếu do Trái Đất có dạng khối cầu và',
+   o:['chuyển động quanh Mặt Trời theo quỹ đạo.',
+      'tự quay quanh trục theo hướng tây - đông.',
+      'trục quay thay đổi hướng nghiêng liên tục.',
+      'quỹ đạo chuyển động có dạng elip gần tròn.'], a:1},
+  {t:'B', q:'Giờ khu vực được sử dụng thống nhất trong từng múi giờ nhằm',
+   o:['thống nhất hoàn toàn giờ Mặt Trời ở các địa phương.',
+      'tạo thuận lợi cho sinh hoạt và giao dịch trên phạm vi rộng.',
+      'xóa bỏ hoàn toàn chênh lệch kinh độ giữa các địa phương.',
+      'làm thời gian ngày và đêm bằng nhau trong cả năm.'], a:1},
+  {t:'B', q:'Một quốc gia có lãnh thổ trải rộng theo chiều đông - tây có thể sử dụng nhiều múi giờ do',
+   o:['chênh lệch kinh độ lớn làm giờ địa phương khác biệt đáng kể.',
+      'chênh lệch vĩ độ lớn làm giờ địa phương khác biệt đáng kể.',
+      'sự khác nhau về mùa làm giờ khu vực biến đổi theo năm.',
+      'sự khác nhau về ngày đêm làm giờ khu vực biến đổi theo năm.'], a:0},
+  {t:'B', q:'Nguyên nhân chủ yếu tạo nên các mùa trong năm',
+   o:['Khoảng cách Trái Đất - Mặt Trời thay đổi rất lớn theo từng mùa.',
+      'Trục Trái Đất nghiêng và giữ nguyên hướng khi chuyển động quanh Mặt Trời.',
+      'Tốc độ tự quay quanh trục của Trái Đất thay đổi rõ rệt theo mùa.',
+      'Mặt Trời chuyển động quanh Trái Đất theo quỹ đạo thay đổi theo năm.'], a:1},
+  {t:'B', q:'Bán cầu Bắc nhận được nhiều nhiệt hơn vào khoảng ngày 22 - 6 chủ yếu do',
+   o:['bán cầu Bắc ở xa Mặt Trời hơn và có thời gian ngày ngắn hơn.',
+      'trục Trái Đất vuông góc với mặt phẳng quỹ đạo và không nghiêng.',
+      'bán cầu Nam ngả về phía Mặt Trời và nhận góc chiếu sáng lớn.',
+      'bán cầu Bắc ngả về phía Mặt Trời, góc chiếu lớn và ngày dài.'], a:3},
+
+  {t:'C', q:'Thành phần cấu tạo của thạch quyển gồm',
+   o:['vỏ Trái Đất và phần cứng phía trên của manti.',
+      'toàn bộ lớp manti và phần nhân của Trái Đất.',
+      'vỏ Trái Đất và toàn bộ phần vật chất manti.',
+      'khí quyển và phần nước phía trên của thủy quyển.'], a:0},
+  {t:'C', q:'Độ dày trung bình của thạch quyển khoảng',
+   o:['50 km.','100 km.','200 km.','500 km.'], a:1},
+  {t:'C', q:'Ranh giới bên dưới của thạch quyển tiếp xúc với',
+   o:['lớp quánh dẻo nằm ở phần trên của manti.',
+      'lớp nhân ngoài nằm sâu bên trong Trái Đất.',
+      'phần đáy sâu của các đại dương trên Trái Đất.',
+      'lớp khí quyển bao quanh bề mặt Trái Đất.'], a:0},
+  {t:'C', q:'Một mảng kiến tạo thường bao gồm',
+   o:['chỉ phần lục địa của một châu lục.',
+      'cả phần lục địa và phần đáy đại dương.',
+      'chỉ phần đáy của một đại dương.',
+      'toàn bộ lớp manti nằm dưới vỏ Trái Đất.'], a:1},
+  {t:'C', q:'Mảng kiến tạo chủ yếu chỉ có phần đáy đại dương',
+   o:['mảng Phi.','mảng Âu - Á.','mảng Thái Bình Dương.','mảng Nam Mỹ.'], a:2},
+  {t:'C', q:'Các mảng kiến tạo dịch chuyển trên',
+   o:['lớp quánh dẻo nằm ở phần trên của manti.',
+      'lớp nhân trong nằm sâu ở trung tâm Trái Đất.',
+      'phần vỏ đại dương nằm dưới các đại dương.',
+      'tầng trầm tích nằm ở phía trên vỏ Trái Đất.'], a:0},
+  {t:'C', q:'Hai kiểu chuyển động tương đối chủ yếu giữa các mảng kiến tạo',
+   o:['nâng lên và hạ xuống theo phương thẳng đứng.',
+      'uốn nếp và đứt gãy trong lớp vỏ Trái Đất.',
+      'xô vào nhau và tách xa nhau giữa các mảng.',
+      'phong hóa và bóc mòn trên bề mặt Trái Đất.'], a:2},
+  {t:'C', q:'Các mảng kiến tạo dịch chuyển trên',
+   o:['lớp quánh dẻo nằm ở phần trên của manti.',
+      'lớp nhân trong nằm sâu ở trung tâm Trái Đất.',
+      'phần vỏ đại dương nằm dưới các đại dương.',
+      'tầng trầm tích nằm ở phía trên vỏ Trái Đất.'], a:0},
+  {t:'C', q:'Đặc điểm phổ biến tại vùng tiếp xúc giữa các mảng kiến tạo',
+   o:['tương đối ổn định và ít xảy ra biến động kiến tạo.',
+      'chủ yếu xảy ra quá trình bồi tụ vật liệu trầm tích.',
+      'hầu như không xuất hiện các hoạt động magma.',
+      'thường không ổn định, có nhiều động đất và núi lửa.'], a:3},
+  {t:'C', q:'Điểm khác nhau cơ bản giữa thạch quyển và vỏ Trái Đất',
+   o:['Vỏ Trái Đất dày hơn và bao gồm toàn bộ thạch quyển.',
+      'Thạch quyển chỉ gồm các tầng đá thuộc về Trái Đất.',
+      'Vỏ Trái Đất gồm thêm phần cứng phía trên của manti.',
+      'Thạch quyển gồm vỏ Trái Đất và phần cứng phía trên của manti.'], a:3},
+  {t:'C', q:'Hai mảng lục địa xô vào nhau thường tạo nên',
+   o:['đồng bằng châu thổ thấp do quá trình bồi tụ.',
+      'dãy núi lục địa cao do quá trình nén ép và uốn nếp.',
+      'rãnh nứt lớn giữa đại dương do quá trình tách giãn.',
+      'thềm lục địa mở rộng nhanh do quá trình bồi lắng.'], a:1},
+  {t:'C', q:'Một mảng đại dương xô húc với một mảng lục địa thường dẫn tới',
+   o:['hai mảng cùng nâng lên, không có biến dạng đáng kể ở ranh giới.',
+      'mảng lục địa bị hút chìm, tạo vực biển sâu ở ranh giới mảng.',
+      'một đồng bằng rộng được bồi tụ ngay tại vùng tiếp xúc giữa hai mảng.',
+      'mảng đại dương bị hút chìm, tạo vực sâu và núi cao ven lục địa.'], a:3},
+  {t:'C', q:'Hai mảng lục địa tách xa nhau có thể tạo thành',
+   o:['vực biển sâu hình thành do một mảng bị hút chìm.',
+      'dãy núi cao hình thành do hai vỏ lục địa bị nén ép.',
+      'vết nứt lớn, magma trào lên dọc theo vùng tách giãn.',
+      'bề mặt ổn định, hầu như không có hoạt động kiến tạo.'], a:2},
+  {t:'C', q:'Hai mảng đại dương tách xa nhau thường gắn với',
+   o:['sống núi ngầm giữa đại dương kèm hoạt động magma.',
+      'dãy núi lục địa cao hình thành do hiện tượng hút chìm.',
+      'đồng bằng phù sa ven sông do quá trình bồi tụ vật liệu.',
+      'vùng hoang mạc nội địa do điều kiện khí hậu khô hạn.'], a:0},
+  {t:'C', q:'Nguyên nhân trực tiếp của nhiều hiện tượng kiến tạo, động đất và núi lửa theo thuyết kiến tạo mảng',
+   o:['sự chuyển dịch và tương tác giữa các mảng kiến tạo.',
+      'sự thay đổi nhiệt độ không khí theo thời gian.',
+      'sự chuyển động thường xuyên của các dòng biển.',
+      'sự bồi tụ vật liệu do hoạt động của các dòng sông.'], a:0},
+  {t:'C', q:'Các mảng kiến tạo có thể dịch chuyển chủ yếu do',
+   o:['thạch quyển nằm trực tiếp trên lớp nhân ngoài ở trạng thái lỏng.',
+      'ranh giới các mảng luôn trùng hoàn toàn với đường bờ các lục địa.',
+      'thạch quyển tiếp xúc lớp quánh dẻo của manti nên có thể dịch chuyển.',
+      'lực hút mạnh mẽ từ các thiên thể mà chủ yếu là Mặt Trời.'], a:2},
+  {t:'C', q:'Vùng tiếp xúc giữa các mảng kiến tạo thường không ổn định chủ yếu do',
+   o:['các mảng chuyển động cùng hướng với tốc độ hoàn toàn giống nhau.',
+      'các mảng tương tác, nén ép hoặc tách giãn, làm magma có thể trào lên.',
+      'các mảng ngừng chuyển động và không còn tương tác tại ranh giới.',
+      'các ranh giới mảng đều phân bố rất xa các khu vực dân cư.'], a:1},
+  {t:'C', q:'Sự khác nhau cơ bản trong hình thành Himalaya và An-đét',
+   o:['Hi-ma-lay-a do hai mảng đại dương tách xa; An-đét do hai mảng lục địa tách xa.',
+      'Hi-ma-lay-a do mảng đại dương hút chìm; An-đét do hai mảng lục địa xô vào nhau.',
+      'Hi-ma-lay-a và An-đét đều hình thành chủ yếu do ngoại lực phong hóa, xâm thực và bồi tụ.',
+      'Hi-ma-lay-a do hai mảng lục địa xô vào; An-đét do mảng đại dương hút chìm dưới mảng lục địa.'], a:3},
+  {t:'C', q:'Một chuỗi động đất và núi lửa phân bố thành dải kéo dài gần ranh giới nhiều mảng là do',
+   o:['dải này chủ yếu hình thành do các yếu tố khí hậu tác động.',
+      'đây là nơi các mảng tương tác nên hoạt động kiến tạo tập trung.',
+      'động đất và núi lửa phân bố ngẫu nhiên, không liên quan đến mảng.',
+      'dải này nằm hoàn toàn trong vùng ổn định ở giữa một mảng kiến tạo.'], a:1},
+  {t:'C', q:'Một khu vực nằm tại nơi ba mảng tiếp giáp, dẫn đến',
+   o:['khu vực có xu hướng ổn định do các mảng triệt tiêu chuyển động.',
+      'khu vực chỉ chịu bồi tụ và hầu như không biến dạng địa hình.',
+      'khu vực có hoạt động kiến tạo phức tạp và nguy cơ động đất cao.',
+      'khu vực chắc chắn không có núi lửa do các mảng đã ổn định.'], a:2}
+];
+
+const TF_DATA = [
+  { t:'A',
+    p:'Vỏ đại dương và vỏ lục địa có sự khác biệt rõ rệt về cấu tạo. Dưới tầng granit là tầng badan, bao gồm đá badan và các loại đá nặng tương tự. Tầng badan thường lộ ra dưới đáy đại dương. Do có sự khác biệt về cấu tạo, lớp vỏ lục địa và vỏ đại dương không giống nhau.',
+    s:[
+      {t:'Tầng đá badan nằm ở vị trí bên dưới tầng đá granit trong cấu trúc của vỏ lục địa.', a:true},
+      {t:'Vỏ đại dương có độ dày mỏng hơn và khối lượng riêng lớn hơn vỏ lục địa.', a:true},
+      {t:'Sự chênh lệch về khối lượng riêng giữa hai loại vỏ là nguyên nhân chính làm cho vỏ đại dương bị hút chìm xuống dưới vỏ lục địa khi hai mảng xô vào nhau.', a:true},
+      {t:'Vỏ đại dương bao gồm đầy đủ cả ba tầng đá: trầm tích, granit và badan.', a:false}
+    ]},
+  { t:'A',
+    p:'Vật liệu cấu tạo nên vỏ Trái Đất là khoáng vật và đá. Khoáng vật là những nguyên tố hoặc hợp chất hoá học được hình thành do các quá trình địa chất. Trong tự nhiên, đa số khoáng vật ở trạng thái rắn, một số ở trạng thái lỏng hoặc khí.',
+    s:[
+      {t:'Vật liệu chính cấu tạo nên vỏ Trái Đất bao gồm khoáng vật và các loại đá.', a:true},
+      {t:'Tất cả các khoáng vật trong tự nhiên đều tồn tại dưới dạng đơn chất.', a:false},
+      {t:'Khoáng vật có thể tồn tại ở nhiều trạng thái vật lí khác nhau tuỳ thuộc vào điều kiện hình thành và thành phần khoáng vật.', a:true},
+      {t:'Khoáng vật có nhiều giá trị khác nhau trong việc khai thác để phục vụ phát triển kinh tế - xã hội.', a:true}
+    ]},
+  { t:'B',
+    p:'Do trục Trái Đất luôn nghiêng với mặt phẳng quỹ đạo và không đổi phương khi chuyển động quanh Mặt Trời nên có hiện tượng ngày đêm dài ngắn khác nhau theo vĩ độ. Độ dài ngày đêm chênh lệch nhau càng nhiều khi đi từ xích đạo về hai cực. Từ vòng cực về cực có hiện tượng "đêm trắng". Thành phố Xanh Pê-téc-bua nằm ở vĩ độ cao, gần vòng cực Bắc. Xanh Pê-téc-bua thu hút khách du lịch với hiện tượng "đêm trắng".',
+    s:[
+      {t:'"Đêm trắng" có thời gian ban đêm diễn ra rất ngắn.', a:true},
+      {t:'"Đêm trắng" diễn ra chủ yếu ở khu vực từ xích đạo đến vòng cực.', a:false},
+      {t:'"Đêm trắng" diễn ra vào mùa hạ ở Xanh Pê-téc-bua.', a:true},
+      {t:'Xanh Pê-téc-bua có hiện tượng "đêm trắng" do địa điểm này nằm hoàn toàn trước đường phân chia sáng tối.', a:false}
+    ]},
+  { t:'C',
+    p:'Theo thuyết kiến tạo mảng, thạch quyển gồm một số mảng kiến tạo. Các mảng này có bộ phận nổi cao trên mực nước biển là lục địa, các đảo và có bộ phận trũng, thấp bị nước bao phủ là đại dương. Các mảng kiến tạo nổi trên lớp vật chất quánh dẻo thuộc phần trên của lớp manti. Hoạt động của các dòng đối lưu vật chất quánh dẻo và nhiệt độ cao trong lớp manti trên làm cho các mảng dịch chuyển. Mỗi mảng kiến tạo di chuyển độc lập với tốc độ chậm.',
+    s:[
+      {t:'Thạch quyển được tạo thành bởi 7 mảng kiến tạo lớn.', a:true},
+      {t:'Các mảng kiến tạo hoàn toàn là lục địa.', a:false},
+      {t:'Các mảng kiến tạo có sự dịch chuyển rất nhanh.', a:false},
+      {t:'Sự dịch chuyển của các mảng kiến tạo là do hoạt động của các dòng đối lưu vật chất.', a:true}
+    ]},
+  { t:'C',
+    p:'Sự dịch chuyển các mảng kiến tạo là biểu hiện của tác động nội lực. Tác động của nội lực tạo ra các vận động kiến tạo, làm biến dạng vỏ Trái Đất, gây ra hiện tượng uốn nếp, đứt gãy và tạo nên sự thay đổi về địa hình.',
+    s:[
+      {t:'Sự dịch chuyển của các mảng kiến tạo được xem là nguyên nhân chủ yếu sinh ra nội lực.', a:false},
+      {t:'Khi lực nén ép tác động lên khu vực có cấu tạo đá mềm, vỏ Trái Đất sẽ uốn cong lại tạo thành các nếp uốn.', a:true},
+      {t:'Khi thiết kế các công trình thuỷ điện lớn, kĩ sư phải khảo sát kĩ các đường đứt gãy kiến tạo để phòng tránh rủi ro động đất.', a:true},
+      {t:'Tác động của nội lực không làm biến dạng lớp vỏ Trái Đất hay gây ra sự thay đổi về địa hình.', a:false}
+    ]}
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const state = {
+  items: [],
+  index: 0,
+  settings: {
+    shuffleAnswers: false,
+    shuffleQuestions: false,
+    minutes: 45,
+    viewMode: 'single'
+  },
+  remaining: 0,
+  timerId: null,
+  startedAt: 0,
+  elapsed: 0,
+  submitted: false,
+  reviewFilter: 'all'
+};
+
+/* =========================================================
+   BUILD
+   ========================================================= */
+function buildItems(s){
+  let mc = MC_DATA.map(q => ({
+    type:'mc', part:1, topic:q.t, question:q.q,
+    options: q.o.map((text, i) => ({ text, correct: i === q.a })),
+    selected: null
+  }));
+  if(s.shuffleAnswers) mc.forEach(it => { it.options = shuffle(it.options); });
+  if(s.shuffleQuestions) mc = shuffle(mc);
+
+  let tf = TF_DATA.map(q => ({
+    type:'tf', part:2, topic:q.t, passage:q.p,
+    statements: q.s.map(st => ({ text: st.t, correct: st.a, selected: null }))
+  }));
+  if(s.shuffleQuestions) tf = shuffle(tf);
+
+  return [...mc, ...tf];
+}
+
+function startQuiz(){
+  state.items = buildItems(state.settings);
+  state.index = 0;
+  state.submitted = false;
+  state.startedAt = Date.now();
+  document.body.classList.toggle('scroll-mode', state.settings.viewMode === 'scroll');
+  showScreen('quizScreen');
+  if(state.settings.viewMode === 'single') renderQuestion();
+  else renderAllQuestions();
+  updateProgress();
+  startTimer(state.settings.minutes);
+}
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+function startTimer(minutes){
+  clearInterval(state.timerId);
+  const el = $('timer');
+  el.classList.remove('warn');
+  if(!minutes){ el.textContent = '∞'; return; }
+  state.remaining = minutes * 60;
+  el.textContent = fmtTime(state.remaining);
+  state.timerId = setInterval(() => {
+    state.remaining--;
+    el.textContent = fmtTime(state.remaining);
+    if(state.remaining <= 60) el.classList.add('warn');
+    if(state.remaining <= 0){
+      clearInterval(state.timerId);
+      doSubmit(true);
+    }
+  }, 1000);
+}
+
+/* =========================================================
+   ANSWER STATE
+   ========================================================= */
+const isAnswered = it => it.type === 'mc'
+  ? it.selected !== null
+  : it.statements.every(s => s.selected !== null);
+
+const isTouched = it => it.type === 'mc'
+  ? it.selected !== null
+  : it.statements.some(s => s.selected !== null);
+
+const itemCorrect = it => it.type === 'mc'
+  ? (it.selected !== null && !!it.options[it.selected].correct)
+  : it.statements.every(s => s.selected === s.correct);
+
+/* =========================================================
+   BUILD CARD
+   ========================================================= */
+function buildCard(it, idx, review){
+  const card = document.createElement('div');
+  card.className = 'box';
+
+  if(review){
+    const head = document.createElement('div');
+    head.className = 'ritem-hd';
+    const num = document.createElement('span');
+    num.className = 'ritem-num';
+    num.textContent = 'Câu ' + (idx + 1) + (it.part === 1 ? ' · Trắc nghiệm' : ' · Đúng/Sai');
+    const ok = itemCorrect(it);
+    const tag = document.createElement('span');
+    tag.className = 'tag ' + (ok ? 'ok' : 'no');
+    tag.textContent = ok ? 'ĐÚNG' : 'SAI';
+    head.append(num, tag);
+    card.appendChild(head);
+  }
+
+  const part = document.createElement('div');
+  part.className = 'part ' + (it.part === 1 ? 'p1' : 'p2');
+  part.textContent = it.part === 1 ? 'PHẦN 1 · TRẮC NGHIỆM' : 'PHẦN 2 · ĐÚNG/SAI';
+  card.appendChild(part);
+
+  const topic = document.createElement('div');
+  topic.className = 'topic';
+  topic.textContent = TOPICS[it.topic];
+  card.appendChild(topic);
+
+  if(it.type === 'mc'){
+    const q = document.createElement('p');
+    q.className = 'qtext';
+    q.textContent = it.question;
+    card.appendChild(q);
+    card.appendChild(buildMCOptions(it, review));
+  } else {
+    const ps = document.createElement('div');
+    ps.className = 'passage';
+    ps.textContent = it.passage;
+    card.appendChild(ps);
+    card.appendChild(buildTFStatements(it, review));
+  }
+  return card;
+}
+
+function buildMCOptions(it, review){
+  const box = document.createElement('div');
+  it.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'opt';
+
+    const ltr = document.createElement('span');
+    ltr.className = 'opt-letter';
+    ltr.textContent = 'ABCD'[i];
+
+    const body = document.createElement('span');
+    body.className = 'opt-body';
+
+    const txt = document.createElement('span');
+    txt.className = 'opt-text';
+    txt.textContent = opt.text;
+    body.appendChild(txt);
+    btn.append(ltr, body);
+
+    if(review){
+      btn.disabled = true;
+      const isUserChoice = it.selected === i;
+      const isCorrect = opt.correct;
+      if(isCorrect) btn.classList.add('correct');
+      if(isUserChoice && !isCorrect) btn.classList.add('wrong');
+
+      const labels = document.createElement('span');
+      labels.className = 'opt-labels';
+      if(isUserChoice){
+        const u = document.createElement('span');
+        u.className = 'lbl lbl-user';
+        u.textContent = 'Đáp án của bạn';
+        labels.appendChild(u);
+      }
+      if(isCorrect){
+        const c = document.createElement('span');
+        c.className = 'lbl lbl-correct';
+        c.textContent = 'Đáp án đúng';
+        labels.appendChild(c);
+      }
+      if(labels.children.length) body.appendChild(labels);
+    } else {
+      if(it.selected === i) btn.classList.add('selected');
+      btn.addEventListener('click', () => {
+        it.selected = i;
+        box.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        btn.classList.add('selected');
+        updateProgress();
+      });
+    }
+    box.appendChild(btn);
+  });
+  return box;
+}
+
+function buildTFStatements(it, review){
+  const box = document.createElement('div');
+  it.statements.forEach((st, i) => {
+    const row = document.createElement('div');
+    row.className = 'tfrow';
+
+    const lb = document.createElement('div');
+    lb.className = 'tflabel';
+    const b = document.createElement('b');
+    b.textContent = 'abcd'[i] + ') ';
+    lb.append(b, document.createTextNode(st.text));
+    row.appendChild(lb);
+
+    const btns = document.createElement('div');
+    btns.className = 'tfbtns';
+
+    [{txt:'Đúng', val:true}, {txt:'Sai', val:false}].forEach(o => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tfbtn';
+      btn.textContent = o.txt;
+
+      if(review){
+        btn.disabled = true;
+        if(st.correct === o.val) btn.classList.add('correct');
+        if(st.selected === o.val && st.correct !== o.val) btn.classList.add('wrong');
+      } else {
+        if(st.selected === o.val) btn.classList.add('selected');
+        btn.addEventListener('click', () => {
+          st.selected = o.val;
+          btns.querySelectorAll('.tfbtn').forEach(x => x.classList.remove('selected'));
+          btn.classList.add('selected');
+          updateProgress();
+        });
+      }
+      btns.appendChild(btn);
+    });
+
+    row.appendChild(btns);
+
+    if(review){
+      const labels = document.createElement('div');
+      labels.className = 'tf-labels';
+      const user = document.createElement('span');
+      user.className = 'lbl';
+      if(st.selected === null){
+        user.classList.add('lbl-muted');
+        user.textContent = 'Bạn chọn: (chưa trả lời)';
+      } else {
+        user.classList.add('lbl-user');
+        user.textContent = 'Bạn chọn: ' + (st.selected ? 'Đúng' : 'Sai');
+      }
+      labels.appendChild(user);
+      const corr = document.createElement('span');
+      corr.className = 'lbl lbl-correct';
+      corr.textContent = 'Đáp án: ' + (st.correct ? 'Đúng' : 'Sai');
+      labels.appendChild(corr);
+      row.appendChild(labels);
+    }
+    box.appendChild(row);
+  });
+  return box;
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function renderQuestion(){
+  const area = $('questionArea');
+  area.innerHTML = '';
+  area.appendChild(buildCard(state.items[state.index], state.index, false));
+  updateNav();
+}
+function renderAllQuestions(){
+  const area = $('questionArea');
+  area.innerHTML = '';
+  state.items.forEach((it, i) => {
+    const card = buildCard(it, i, false);
+    card.id = 'q-' + i;
+    card.classList.add('qcard');
+    area.appendChild(card);
+  });
+  updateNav();
+}
+function updateNav(){
+  $('btnPrev').disabled = state.index === 0;
+  $('btnNext').disabled = state.index === state.items.length - 1;
+}
+function updateProgress(){
+  const total = state.items.length;
+  const answered = state.items.filter(isAnswered).length;
+  if(state.settings.viewMode === 'single'){
+    $('progressText').textContent = `Câu ${state.index + 1}/${total}`;
+  } else {
+    $('progressText').textContent = `${answered}/${total} đã trả lời`;
+  }
+  $('progressFill').style.width = (answered / total * 100) + '%';
+  buildPalette();
+}
+function buildPalette(){
+  const p = $('palette');
+  p.innerHTML = '';
+  const mcCount = state.items.filter(x => x.part === 1).length;
+  const isSingle = state.settings.viewMode === 'single';
+
+  state.items.forEach((it, i) => {
+    if(i === 0){
+      const s = document.createElement('div');
+      s.className = 'sep';
+      s.textContent = 'PHẦN 1 · TRẮC NGHIỆM';
+      p.appendChild(s);
+    }
+    if(i === mcCount){
+      const s = document.createElement('div');
+      s.className = 'sep';
+      s.textContent = 'PHẦN 2 · ĐÚNG/SAI';
+      p.appendChild(s);
+    }
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = i + 1;
+    if(isAnswered(it)) b.classList.add('answered');
+    if(isSingle && i === state.index) b.classList.add('cur');
+    b.addEventListener('click', () => {
+      if(isSingle){
+        state.index = i;
+        renderQuestion();
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const el = $('q-' + i);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      closeDrawer();
+    });
+    p.appendChild(b);
+  });
+}
+
+/* =========================================================
+   DRAWER / MODAL
+   ========================================================= */
+function openDrawer(){ $('drawer').classList.add('on'); $('drawerOverlay').classList.add('on'); }
+function closeDrawer(){ $('drawer').classList.remove('on'); $('drawerOverlay').classList.remove('on'); }
+
+let modalCallback = null;
+function showModal(title, msg, onOk, okText){
+  $('modalTitle').textContent = title;
+  $('modalMsg').textContent = msg;
+  $('modalOk').textContent = okText || 'Đồng ý';
+  modalCallback = onOk;
+  $('modal').classList.add('on');
+}
+function closeModal(){ $('modal').classList.remove('on'); modalCallback = null; }
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+function requestSubmit(){
+  const un = state.items.filter(it => !isAnswered(it)).length;
+  const msg = un > 0
+    ? `Còn ${un} câu chưa trả lời. Nộp bài ngay?`
+    : 'Bạn đã hoàn thành tất cả câu hỏi. Nộp bài?';
+  showModal('Nộp bài', msg, () => { closeDrawer(); doSubmit(false); }, 'Nộp bài');
+}
+function doSubmit(auto){
+  if(state.submitted) return;
+  state.submitted = true;
+  clearInterval(state.timerId);
+  state.elapsed = auto && state.settings.minutes
+    ? state.settings.minutes * 60
+    : Math.floor((Date.now() - state.startedAt) / 1000);
+  renderResult();
+  showScreen('resultScreen');
+  closeModal();
+  closeDrawer();
+}
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+function renderResult(){
+  let mcOK = 0, mcTotal = 0, tfOK = 0, tfTotal = 0;
+  let correct = 0, wrong = 0, unanswered = 0;
+  const total = state.items.length;
+
+  state.items.forEach(it => {
+    if(it.type === 'mc'){
+      mcTotal++;
+      if(itemCorrect(it)) mcOK++;
+    } else {
+      it.statements.forEach(s => {
+        tfTotal++;
+        if(s.selected === s.correct) tfOK++;
+      });
+    }
+    if(!isTouched(it)) unanswered++;
+    else if(itemCorrect(it)) correct++;
+    else wrong++;
+  });
+
+  const maxPoints = mcTotal + tfTotal * 0.5;
+  const points = mcOK + tfOK * 0.5;
+  const score10 = Math.round((points / maxPoints) * 100) / 10;
+
+  $('scoreDisplay').textContent = score10.toFixed(1).replace('.0', '');
+  $('totalCount').textContent = total;
+  $('bdCorrect').textContent = correct;
+  $('bdWrong').textContent = wrong;
+  $('bdUnanswered').textContent = unanswered;
+  $('mcScore').textContent = mcOK + '/' + mcTotal;
+  $('tfScore').textContent = tfOK + '/' + tfTotal;
+  $('timeUsed').textContent = fmtTime(state.elapsed);
+
+  const scorePct = Math.max(0, Math.min(1, score10 / 10));
+  const scoreRing = $('scoreRing');
+  scoreRing.style.strokeDasharray = CIRCUMFERENCE;
+  scoreRing.style.strokeDashoffset = CIRCUMFERENCE;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      scoreRing.style.strokeDashoffset = CIRCUMFERENCE * (1 - scorePct);
+    });
+  });
+
+  const pctCorrect = total ? correct / total : 0;
+  const pctWrong = total ? wrong / total : 0;
+  const segC = $('segCorrect');
+  const segW = $('segWrong');
+  segC.setAttribute('transform', 'rotate(-90 60 60)');
+  segW.setAttribute('transform', 'rotate(-90 60 60)');
+  segC.style.strokeDasharray = `${CIRCUMFERENCE * pctCorrect} ${CIRCUMFERENCE}`;
+  segC.style.strokeDashoffset = '0';
+  segW.style.strokeDasharray = `${CIRCUMFERENCE * pctWrong} ${CIRCUMFERENCE}`;
+  segW.style.strokeDashoffset = `${-CIRCUMFERENCE * pctCorrect}`;
+
+  const title = $('resultTitle');
+  if(score10 >= 8) title.textContent = 'Xuất sắc! 🎉';
+  else if(score10 >= 6.5) title.textContent = 'Khá tốt! 👍';
+  else if(score10 >= 5) title.textContent = 'Đạt yêu cầu 🙂';
+  else title.textContent = 'Cần ôn tập thêm 💪';
+
+  state.reviewFilter = 'all';
+  document.querySelectorAll('#filterChips .chip').forEach(c =>
+    c.classList.toggle('active', c.dataset.filter === 'all'));
+  renderReview('all');
+}
+
+/* =========================================================
+   REVIEW
+   ========================================================= */
+function renderReview(filter){
+  const list = $('reviewList');
+  list.innerHTML = '';
+  let shown = 0;
+  state.items.forEach((it, i) => {
+    const ok = itemCorrect(it);
+    if(filter === 'wrong' && ok) return;
+    shown++;
+    const card = buildCard(it, i, true);
+    card.classList.add('ritem');
+    list.appendChild(card);
+  });
+  if(shown === 0){
+    const e = document.createElement('div');
+    e.className = 'box empty';
+    e.textContent = 'Không có câu nào sai. Tuyệt vời!';
+    list.appendChild(e);
+  }
+}
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+document.querySelectorAll('#timerChips .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#timerChips .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    state.settings.minutes = parseInt(c.dataset.min, 10);
+  });
+});
+
+document.querySelectorAll('#viewModeChips .view-mode-opt').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#viewModeChips .view-mode-opt').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    state.settings.viewMode = c.dataset.mode;
+  });
+});
+
+$('btnStart').addEventListener('click', () => {
+  state.settings.shuffleAnswers = $('optShuffleAnswers').checked;
+  state.settings.shuffleQuestions = $('optShuffleQuestions').checked;
+  startQuiz();
+});
+$('btnPrev').addEventListener('click', () => {
+  if(state.settings.viewMode !== 'single') return;
+  if(state.index > 0){
+    state.index--;
+    renderQuestion();
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+$('btnNext').addEventListener('click', () => {
+  if(state.settings.viewMode !== 'single') return;
+  if(state.index < state.items.length - 1){
+    state.index++;
+    renderQuestion();
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+$('btnSubmit').addEventListener('click', requestSubmit);
+$('btnPalette').addEventListener('click', openDrawer);
+$('drawerClose').addEventListener('click', closeDrawer);
+$('drawerOverlay').addEventListener('click', closeDrawer);
+$('modalCancel').addEventListener('click', closeModal);
+$('modalOk').addEventListener('click', () => {
+  const cb = modalCallback;
+  closeModal();
+  if(cb) cb();
+});
+$('btnRetake').addEventListener('click', startQuiz);
+$('btnHome').addEventListener('click', () => {
+  clearInterval(state.timerId);
+  showScreen('startScreen');
+});
+document.querySelectorAll('#filterChips .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#filterChips .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    state.reviewFilter = c.dataset.filter;
+    renderReview(state.reviewFilter);
+  });
+});
+
+window.addEventListener('beforeunload', e => {
+  if(!state.submitted && state.items.length && $('quizScreen').classList.contains('active')){
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+initPassword();
+</script>
+</body>
+</html>
